@@ -1,20 +1,26 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  --van-white: #fff;
+  --van-blue: #1989fa;
+  --van-button-primary-color: var(--van-white);
+  --van-button-primary-background: var(--van-primary-color);
+}
 
-  color-scheme: light dark;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 #app {
-  max-width: 1280px;
+  max-width: 100vw;
+  height: 100vh;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+}
+
+.van-theme-light body {
+  background-color: #eff2f5;
+}
+
+.van-theme-dark body {
+  background-color: black;
 }

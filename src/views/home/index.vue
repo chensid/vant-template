@@ -1,26 +1,30 @@
 <script setup lang="ts">
-import { useCounterStore } from "@/store/counter";
-import { getHomeData } from "@/api/home";
+import { ref, watch } from "vue";
+import { useThemeStore } from "@/store/modules/theme";
 
-const counterStore = useCounterStore();
-const increment = () => counterStore.increment();
-
-const handleGetData = () => {
-  getHomeData().then((res) => {
-    console.log(res);
-  });
-};
+const themeStore = useThemeStore();
 
 console.log(import.meta.env.VITE_BASE_API);
+const checked = ref(themeStore.theme === "dark");
+
+watch(checked, (val) => {
+  if (val) {
+    themeStore.setTheme("dark");
+  } else {
+    themeStore.setTheme("light");
+  }
+});
 </script>
 
 <template>
-  <div>
-    <van-button type="primary" @click="increment">累加</van-button>
-    <h3>{{ counterStore.count }}</h3>
-    <h3>{{ counterStore.doubleCount }}</h3>
-    <van-button type="primary" @click="handleGetData">获取数据</van-button>
-  </div>
+  <van-cell-group title="基础的H5开发框架" inset>
+    <van-cell title="暗黑模式">
+      <template #right-icon>
+        <van-switch v-model="checked" />
+      </template>
+    </van-cell>
+    <van-cell title="关于" is-link to="about" />
+  </van-cell-group>
 </template>
 
 <style lang="scss" scoped></style>
