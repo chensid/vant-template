@@ -4,7 +4,6 @@ import { useThemeStore } from "@/store/modules/theme";
 
 const themeStore = useThemeStore();
 
-console.log(import.meta.env.VITE_BASE_API);
 const checked = ref(themeStore.theme === "dark");
 
 watch(checked, (val) => {
