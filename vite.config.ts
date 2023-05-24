@@ -11,10 +11,8 @@ import { viteVConsole } from "vite-plugin-vconsole";
 export default defineConfig(({ command, mode }) => {
   const root = process.cwd();
   const env = loadEnv(mode, root);
-  console.log("command", command);
-  console.log("mode", mode);
-  console.log("env", env);
-  
+  console.log(command, mode, env);
+
   return {
     plugins: [
       vue(),

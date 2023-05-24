@@ -1,20 +1,10 @@
 <script setup lang="ts">
 import type { ConfigProviderTheme } from "vant";
-import { ref, watch } from "vue";
-import { useThemeStore } from "@/store/modules/theme";
+import { computed } from "vue";
+import { useThemeStore } from "@/stores/theme";
 
 const themeStore = useThemeStore();
-
-const theme = ref<ConfigProviderTheme>("light");
-
-console.log(themeStore.theme);
-
-watch(
-  () => themeStore.theme,
-  (val) => {
-    theme.value = val as ConfigProviderTheme;
-  }
-);
+const theme = computed(() => themeStore.theme as ConfigProviderTheme);
 </script>
 
 <template>
