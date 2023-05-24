@@ -8,6 +8,7 @@
     "staging": "vite --mode staging",
     "prod": "vite --mode production",
     "build": "vue-tsc && vite build --mode production",
+    "lint": "eslint --max-warnings 0 \"{src,mock,build}/**/*.{vue,js,ts,tsx}\" --fix",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -20,7 +21,11 @@
   },
   "devDependencies": {
     "@types/node": "^20.2.3",
+    "@typescript-eslint/eslint-plugin": "^5.59.7",
+    "@typescript-eslint/parser": "^5.59.7",
     "@vitejs/plugin-vue": "^4.2.3",
+    "eslint": "^8.41.0",
+    "eslint-plugin-vue": "^9.14.0",
     "postcss-px-to-viewport": "^1.1.1",
     "sass": "^1.62.1",
     "typescript": "^5.0.4",

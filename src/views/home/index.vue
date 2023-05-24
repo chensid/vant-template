@@ -30,10 +30,10 @@ watch(checked, (val) => {
     <van-cell title="关于" is-link to="about" />
   </van-cell-group>
   <van-tabbar v-model="active">
-    <van-tabbar-item icon="home-o">首页</van-tabbar-item>
-    <van-tabbar-item icon="search">查询</van-tabbar-item>
-    <van-tabbar-item icon="friends-o">联系</van-tabbar-item>
-    <van-tabbar-item icon="setting-o">设置</van-tabbar-item>
+    <van-tabbar-item icon="home-o"> 首页 </van-tabbar-item>
+    <van-tabbar-item icon="search"> 查询 </van-tabbar-item>
+    <van-tabbar-item icon="friends-o"> 联系 </van-tabbar-item>
+    <van-tabbar-item icon="setting-o"> 设置 </van-tabbar-item>
   </van-tabbar>
 </template>
 

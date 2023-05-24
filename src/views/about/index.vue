@@ -17,9 +17,9 @@ const handleBack = () => history.back();
 <template>
   <div class="container">
     <van-nav-bar title="关于" left-arrow @click-left="handleBack" />
-    <van-button type="primary" @click="increment">累加</van-button>
+    <van-button type="primary" @click="increment"> 累加</van-button>
     <h3>{{ counterStore.count }}</h3>
-    <van-button type="primary" @click="handleGetData">获取数据</van-button>
+    <van-button type="primary" @click="handleGetData"> 获取数据 </van-button>
   </div>
 </template>
 
