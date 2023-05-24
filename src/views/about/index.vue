@@ -15,11 +15,17 @@ const handleBack = () => history.back();
 </script>
 
 <template>
-  <van-nav-bar title="关于" left-arrow @click-left="handleBack" />
-  <van-button type="primary" @click="increment">累加</van-button>
-  <h3>{{ counterStore.count }}</h3>
-  <h3>{{ counterStore.doubleCount }}</h3>
-  <van-button type="primary" @click="handleGetData">获取数据</van-button>
+  <div class="container">
+    <van-nav-bar title="关于" left-arrow @click-left="handleBack" />
+    <van-button type="primary" @click="increment">累加</van-button>
+    <h3>{{ counterStore.count }}</h3>
+    <van-button type="primary" @click="handleGetData">获取数据</van-button>
+  </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+}
+</style>
