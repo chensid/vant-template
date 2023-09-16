@@ -26,8 +26,8 @@ dependencies:
 
 devDependencies:
   '@types/node':
-    specifier: ^20.6.0
-    version: 20.6.0
+    specifier: ^20.6.1
+    version: 20.6.1
   '@types/nprogress':
     specifier: ^0.2.0
     version: 0.2.0
@@ -78,7 +78,7 @@ devDependencies:
     version: 3.15.1
   vite:
     specifier: ^4.4.9
-    version: 4.4.9(@types/node@20.6.0)(sass@1.67.0)
+    version: 4.4.9(@types/node@20.6.1)(sass@1.67.0)
   vite-plugin-vconsole:
     specifier: ^2.0.1
     version: 2.0.1
@@ -180,15 +180,15 @@ packages:
       '@commitlint/execute-rule': 17.4.0
       '@commitlint/resolve-extends': 17.4.4
       '@commitlint/types': 17.4.4
-      '@types/node': 20.6.0
+      '@types/node': 20.6.1
       chalk: 4.1.2
       cosmiconfig: 8.2.0
-      cosmiconfig-typescript-loader: 4.3.0(@types/node@20.6.0)(cosmiconfig@8.2.0)(ts-node@10.9.1)(typescript@5.2.2)
+      cosmiconfig-typescript-loader: 4.3.0(@types/node@20.6.1)(cosmiconfig@8.2.0)(ts-node@10.9.1)(typescript@5.2.2)
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       lodash.uniq: 4.5.0
       resolve-from: 5.0.0
-      ts-node: 10.9.1(@types/node@20.6.0)(typescript@5.2.2)
+      ts-node: 10.9.1(@types/node@20.6.1)(typescript@5.2.2)
       typescript: 5.2.2
     transitivePeerDependencies:
       - '@swc/core'
@@ -581,8 +581,8 @@ packages:
     resolution: {integrity: sha512-Hr5Jfhc9eYOQNPYO5WLDq/n4jqijdHNlDXjuAQkkt+mWdQR+XJToOHrsD4cPaMXpn6KO7y2+wM8AZEs8VpBLVA==}
     dev: true
 
-  /@types/node@20.6.0:
-    resolution: {integrity: sha512-najjVq5KN2vsH2U/xyh2opaSEz6cZMR2SetLIlxlj08nOcmPOemJmUK2o4kUzfLqfrWE0PIrNeE16XhYDd3nqg==}
+  /@types/node@20.6.1:
+    resolution: {integrity: sha512-4LcJvuXQlv4lTHnxwyHQZ3uR9Zw2j7m1C9DfuwoTFQQP4Pmu04O6IfLYgMmHoOCt0nosItLLZAH+sOrRE0Bo8g==}
     dev: true
 
   /@types/nprogress@0.2.0:
@@ -743,7 +743,7 @@ packages:
       vite: ^4.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 4.4.9(@types/node@20.6.0)(sass@1.67.0)
+      vite: 4.4.9(@types/node@20.6.1)(sass@1.67.0)
       vue: 3.3.4
     dev: true
 
@@ -1189,7 +1189,7 @@ packages:
     requiresBuild: true
     dev: true
 
-  /cosmiconfig-typescript-loader@4.3.0(@types/node@20.6.0)(cosmiconfig@8.2.0)(ts-node@10.9.1)(typescript@5.2.2):
+  /cosmiconfig-typescript-loader@4.3.0(@types/node@20.6.1)(cosmiconfig@8.2.0)(ts-node@10.9.1)(typescript@5.2.2):
     resolution: {integrity: sha512-NTxV1MFfZDLPiBMjxbHRwSh5LaLcPMwNdCutmnHJCKoVnlvldPWlllonKwrsRJ5pYZBIBGRWWU2tfvzxgeSW5Q==}
     engines: {node: '>=12', npm: '>=6'}
     requiresBuild: true
@@ -1199,9 +1199,9 @@ packages:
       ts-node: '>=10'
       typescript: '>=3'
     dependencies:
-      '@types/node': 20.6.0
+      '@types/node': 20.6.1
       cosmiconfig: 8.2.0
-      ts-node: 10.9.1(@types/node@20.6.0)(typescript@5.2.2)
+      ts-node: 10.9.1(@types/node@20.6.1)(typescript@5.2.2)
       typescript: 5.2.2
     dev: true
     optional: true
@@ -2812,7 +2812,7 @@ packages:
       typescript: 5.2.2
     dev: true
 
-  /ts-node@10.9.1(@types/node@20.6.0)(typescript@5.2.2):
+  /ts-node@10.9.1(@types/node@20.6.1)(typescript@5.2.2):
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     requiresBuild: true
@@ -2832,7 +2832,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-      '@types/node': 20.6.0
+      '@types/node': 20.6.1
       acorn: 8.10.0
       acorn-walk: 8.2.0
       arg: 4.1.3
@@ -2959,7 +2959,7 @@ packages:
     resolution: {integrity: sha512-9rrr4obWyAVtvvlDJH16es9vMY+BPq1lALCRfD2h9vakLaDZsR2csRlqvAMbPCZYglIqlIAUSke7O7LAJHTDgw==}
     dev: true
 
-  /vite@4.4.9(@types/node@20.6.0)(sass@1.67.0):
+  /vite@4.4.9(@types/node@20.6.1)(sass@1.67.0):
     resolution: {integrity: sha512-2mbUn2LlUmNASWwSCNSJ/EG2HuSRTnVNaydp6vMCm5VIqJsjMfbIWtbH2kDuwUVW5mMUKKZvGPX/rqeqVvv1XA==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -2987,7 +2987,7 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 20.6.0
+      '@types/node': 20.6.1
       esbuild: 0.18.12
       postcss: 8.4.28
       rollup: 3.28.0
