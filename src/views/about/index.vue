@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { useCounterStore } from "@/stores/counter";
-import { getHomeData } from "@/api/home";
+import { useCounterStore } from '@/stores/counter'
+import { getHomeData } from '@/api/home'
 
-const counterStore = useCounterStore();
-const increment = () => counterStore.increment();
+const counterStore = useCounterStore()
+const increment = () => counterStore.increment()
 
 const handleGetData = () => {
-  getHomeData().then((res) => {
-    console.log(res);
-  });
-};
+  getHomeData().then(res => {
+    console.log(res)
+  })
+}
 
-const handleBack = () => history.back();
+const handleBack = () => history.back()
 </script>
 
 <template>
