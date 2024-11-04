@@ -1,14 +1,14 @@
-import { defineStore } from "pinia";
+import { defineStore } from 'pinia'
 
-export const useThemeStore = defineStore("theme", {
+export const useThemeStore = defineStore('theme', {
   state: () => ({
-    theme: "light",
+    theme: 'light',
   }),
   getters: {},
   actions: {
     setTheme(theme: string) {
-      this.theme = theme;
+      this.theme = theme
     },
   },
   persist: true,
-});
+})

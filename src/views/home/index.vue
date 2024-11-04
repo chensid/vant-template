@@ -1,26 +1,29 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
-import { useThemeStore } from "@/stores/theme";
+import { ref, watch } from 'vue'
+import { useThemeStore } from '@/stores/theme'
 
-const themeStore = useThemeStore();
+const themeStore = useThemeStore()
 
-const checked = ref(themeStore.theme === "dark");
-const active = ref(0);
+const checked = ref(themeStore.theme === 'dark')
+const active = ref(0)
 
-watch(checked, (val) => {
+watch(checked, val => {
   if (val) {
-    themeStore.setTheme("dark");
+    themeStore.setTheme('dark')
   } else {
-    themeStore.setTheme("light");
+    themeStore.setTheme('light')
   }
-});
+})
 </script>
 
 <template>
-  <van-image
-    fit="contain"
-    src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
-  />
+  <div class="img">
+    <van-image
+      height="100%"
+      fit="contain"
+      src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+    />
+  </div>
   <van-cell-group title="基础的H5开发框架" inset>
     <van-cell title="暗黑模式">
       <template #right-icon>
@@ -37,4 +40,11 @@ watch(checked, (val) => {
   </van-tabbar>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 250px;
+}
+</style>
