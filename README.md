@@ -4,14 +4,35 @@
 
 ```bash
 .
+├── .editorconfig
 ├── .env.development
 ├── .env.production
 ├── .env.staging
+├── .git
+│   ├── COMMIT_EDITMSG
+│   ├── FETCH_HEAD
+│   ├── HEAD
+│   ├── ORIG_HEAD
+│   ├── config
+│   ├── description
+│   ├── hooks
+│   ├── index
+│   ├── info
+│   ├── logs
+│   ├── objects
+│   ├── packed-refs
+│   └── refs
 ├── .gitignore
-├── .vscode
-│   └── extensions.json
+├── .prettierrc.json
 ├── README.md
+├── auto-imports.d.ts
 ├── components.d.ts
+├── dist
+│   ├── assets
+│   ├── index.html
+│   └── vite.svg
+├── env.d.ts
+├── eslint.config.js
 ├── index.html
 ├── package.json
 ├── pnpm-lock.yaml
@@ -20,25 +41,15 @@
 ├── src
 │   ├── App.vue
 │   ├── api
-│   │   └── home.ts
 │   ├── assets
-│   │   └── vue.svg
-│   ├── components
 │   ├── main.ts
 │   ├── router
-│   │   └── index.ts
-│   ├── store
-│   │   ├── counter.ts
-│   │   └── index.ts
+│   ├── stores
 │   ├── style.css
 │   ├── utils
-│   │   └── request.ts
 │   ├── views
-│   │   ├── about
-│   │   │   └── index.vue
-│   │   └── home
-│   │       └── index.vue
 │   └── vite-env.d.ts
+├── tsconfig.app.json
 ├── tsconfig.json
 ├── tsconfig.node.json
 └── vite.config.ts
@@ -47,9 +58,10 @@
 ## 项目命令
 
 ```bash
+# 安装依赖
+pnpm install
 # 启动命令
 pnpm dev
 # 打包命令
 pnpm build
 ```
-
