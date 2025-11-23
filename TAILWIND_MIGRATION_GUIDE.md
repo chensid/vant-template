@@ -241,7 +241,7 @@ npm uninstall sass
     "eslint --fix",
     "prettier --write"
   ],
-  "*.{css}": [
+  "*.css": [
     "prettier --write"
   ],
   "*.{json,md}": [
