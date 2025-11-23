@@ -1,6 +1,11 @@
-import { createRouter, createWebHashHistory, type RouteRecordRaw } from 'vue-router'
+import {
+  createRouter,
+  createWebHashHistory,
+  type RouteRecordRaw,
+} from 'vue-router'
 import * as NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
+import { ROUTE_NAMES, STORAGE_KEY } from '@/constants'
 
 // Configure NProgress
 NProgress.configure({ showSpinner: false })
@@ -17,7 +22,7 @@ declare module 'vue-router' {
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    name: 'home',
+    name: ROUTE_NAMES.HOME,
     component: () => import('@/views/home/index.vue'),
     meta: {
       title: '首页',
@@ -26,7 +31,7 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/about',
-    name: 'about',
+    name: ROUTE_NAMES.ABOUT,
     component: () => import('@/views/about/index.vue'),
     meta: {
       title: '关于',
@@ -59,9 +64,9 @@ router.beforeEach((to, from, next) => {
 
   // Check authentication if required
   if (to.meta.requireAuth) {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem(STORAGE_KEY.TOKEN)
     if (!token) {
-      next({ name: 'home', query: { redirect: to.fullPath } })
+      next({ name: ROUTE_NAMES.HOME, query: { redirect: to.fullPath } })
       return
     }
   }
@@ -74,7 +79,7 @@ router.afterEach(() => {
 })
 
 // Handle navigation errors
-router.onError((error) => {
+router.onError(error => {
   console.error('Router error:', error)
   NProgress.done()
 })

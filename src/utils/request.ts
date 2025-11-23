@@ -1,5 +1,11 @@
-import axios, { type AxiosInstance, type InternalAxiosRequestConfig, type AxiosResponse } from 'axios'
+import axios, {
+  type AxiosInstance,
+  type InternalAxiosRequestConfig,
+  type AxiosResponse,
+} from 'axios'
 import { showLoadingToast, closeToast, showNotify } from 'vant'
+import { API_CODE, STORAGE_KEY, ROUTE_NAMES } from '@/constants'
+import router from '@/router'
 
 // Define response data structure
 interface ApiResponse<T = unknown> {
@@ -32,14 +38,14 @@ service.interceptors.request.use(
     activeRequests++
 
     // Add authentication token if available
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem(STORAGE_KEY.TOKEN)
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`
     }
 
     return config
   },
-  (error) => {
+  error => {
     activeRequests--
     if (activeRequests === 0) {
       closeToast()
@@ -58,44 +64,49 @@ service.interceptors.response.use(
     }
 
     const res = response.data
-    
+
     // Success response
-    if (res.code === 20000 || res.code === 200) {
+    if (res.code === API_CODE.SUCCESS || res.code === API_CODE.SUCCESS_ALT) {
       return res.data
     }
-    
+
     // Handle specific error codes
-    if (res.code === 401) {
+    if (res.code === API_CODE.UNAUTHORIZED) {
       showNotify({ type: 'warning', message: '登录已过期，请重新登录' })
-      localStorage.removeItem('token')
-      // Redirect to login page
-      window.location.href = '/#/login'
+      localStorage.removeItem(STORAGE_KEY.TOKEN)
+      // Redirect to login page using router
+      router.push({ name: ROUTE_NAMES.LOGIN }).catch(() => {
+        // Fallback to home if login route doesn't exist
+        router.push({ name: ROUTE_NAMES.HOME })
+      })
       return Promise.reject(new Error(res.message || '未授权'))
     }
-    
+
     // Other error codes
     const errorMessage = res.message || '请求失败'
     showNotify({ type: 'danger', message: errorMessage })
     return Promise.reject(new Error(errorMessage))
   },
-  (error) => {
+  error => {
     activeRequests--
     if (activeRequests === 0) {
       closeToast()
     }
 
     let message = '网络错误'
-    
+
     if (error.response) {
       // Server responded with error
       switch (error.response.status) {
         case 400:
           message = '请求参数错误'
           break
-        case 401:
+        case API_CODE.UNAUTHORIZED:
           message = '未授权，请重新登录'
-          localStorage.removeItem('token')
-          window.location.href = '/#/login'
+          localStorage.removeItem(STORAGE_KEY.TOKEN)
+          router.push({ name: ROUTE_NAMES.LOGIN }).catch(() => {
+            router.push({ name: ROUTE_NAMES.HOME })
+          })
           break
         case 403:
           message = '拒绝访问'
@@ -119,7 +130,7 @@ service.interceptors.response.use(
       // Something else happened
       message = error.message || '请求配置错误'
     }
-    
+
     showNotify({ type: 'danger', message })
     return Promise.reject(error)
   },
