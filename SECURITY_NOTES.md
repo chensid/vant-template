@@ -32,7 +32,7 @@
 
 ## ⚠️ 已知安全问题
 
-### npm 审计结果
+### pnpm 审计结果
 
 ```bash
 5 low severity vulnerabilities
@@ -59,12 +59,12 @@ tmp@<=0.2.3
 
 - CVE: GHSA-52f5-9888-hmc6
 - 描述: tmp 包允许通过符号链接参数进行任意临时文件/目录写入
-- 影响: 仅在使用 `npm run cz` 提交代码时
+- 影响: 仅在使用 `pnpm run cz` 提交代码时
 
 **修复选项**:
 
 1. **推荐**: 接受风险（因为仅影响开发工具）
-2. **可选**: `npm audit fix --force` (可能导致破坏性更改)
+2. **可选**: `pnpm audit fix --force` (可能导致破坏性更改)
 3. **替代**: 使用其他提交工具（如直接使用 git commit）
 
 ### 当前决策
@@ -78,7 +78,7 @@ tmp@<=0.2.3
 
 **监控计划**:
 
-- 定期运行 `npm audit`
+- 定期运行 `pnpm audit`
 - 等待上游包更新
 - 在安全更新可用时立即应用
 
@@ -279,7 +279,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-      - run: npm audit --audit-level=moderate
+      - run: pnpm install
+      - run: pnpm audit --audit-level=moderate
 ```
 
 #### 3.3 环境变量验证

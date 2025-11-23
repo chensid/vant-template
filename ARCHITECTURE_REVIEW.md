@@ -372,8 +372,8 @@ vant-template/
 ### ✅ 良好的安全实践
 
 1. **依赖安全**:
-   - npm audit 显示 5 个低危漏洞
-   - 建议：运行 `npm audit fix` 修复
+   - pnpm audit 显示 5 个低危漏洞
+   - 建议：运行 `pnpm audit fix` 修复
 
 2. **代码安全**:
    - 使用环境变量管理敏感配置
@@ -406,11 +406,8 @@ vant-template/
 1. **修复依赖安全问题**:
 
    ```bash
-   npm audit fix
+   pnpm audit fix
    ```
-
-2. **更新 Husky 配置**:
-   - 已修复：将 `pnpm lint-staged` 改为 `npx lint-staged`
 
 ### 🟡 中优先级（近期处理）
 
@@ -421,7 +418,7 @@ vant-template/
 2. **添加单元测试**:
 
    ```bash
-   npm install -D vitest @vue/test-utils
+   pnpm add -D vitest @vue/test-utils
    ```
 
    - 为核心功能添加测试

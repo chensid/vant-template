@@ -24,7 +24,7 @@
 ### 步骤 1: 安装 Tailwind CSS
 
 ```bash
-npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
+pnpm add -D tailwindcss@latest postcss@latest autoprefixer@latest
 npx tailwindcss init -p
 ```
 
@@ -228,7 +228,7 @@ const theme = computed(() => themeStore.theme as ConfigProviderTheme)
 更新 `package.json`，移除 Sass:
 
 ```bash
-npm uninstall sass
+pnpm remove sass
 ```
 
 ### 步骤 7: 更新 lint-staged 配置
@@ -273,25 +273,25 @@ css: {
 ### 1. 构建测试
 
 ```bash
-npm run build
+pnpm run build
 ```
 
 ### 2. 开发服务器测试
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 ### 3. 类型检查
 
 ```bash
-npm run type-check
+pnpm run type-check
 ```
 
 ### 4. Lint 检查
 
 ```bash
-npm run lint
+pnpm run lint
 ```
 
 ## 📊 预期结果
