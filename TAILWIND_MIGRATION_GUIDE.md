@@ -47,10 +47,6 @@ export default {
       },
     },
   },
-  // 重要：配置单位为 px，以便 postcss-px-to-viewport 转换
-  corePlugins: {
-    // 如果需要，可以禁用某些插件
-  },
   plugins: [],
 }
 ```
@@ -59,33 +55,38 @@ export default {
 
 更新 `vite.config.ts` 中的 PostCSS 配置，确保 Tailwind 和 px-to-viewport 协同工作：
 
+**注意**: Tailwind CSS 通过 Vite 的配置自动加载，无需在 PostCSS 配置中手动添加。Vite 会自动检测 `tailwind.config.js` 并应用 Tailwind。
+
 ```typescript
-css: {
-  preprocessorOptions: {
+// vite.config.ts
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import postcsspxtoviewport8plugin from 'postcss-px-to-viewport-8-plugin'
+
+export default defineConfig(({ mode }) => ({
+  // ... 其他配置
+  css: {
     // 移除 scss 配置
+    postcss: {
+      plugins: [
+        // px-to-viewport 配置
+        postcsspxtoviewport8plugin({
+          unitToConvert: 'px',
+          viewportWidth: 375,
+          unitPrecision: 6,
+          propList: ['*'],
+          viewportUnit: 'vw',
+          fontViewportUnit: 'vw',
+          selectorBlackList: ['ignore-', 'van-'], // 不转换 Vant 组件的样式
+          minPixelValue: 1,
+          mediaQuery: true,
+          replace: true,
+          landscape: false,
+        }) as any,
+      ],
+    },
   },
-  postcss: {
-    plugins: [
-      // Tailwind CSS
-      require('tailwindcss'),
-      require('autoprefixer'),
-      // px-to-viewport 配置
-      postcsspxtoviewport8plugin({
-        unitToConvert: 'px',
-        viewportWidth: 375,
-        unitPrecision: 6,
-        propList: ['*'],
-        viewportUnit: 'vw',
-        fontViewportUnit: 'vw',
-        selectorBlackList: ['ignore-', 'van-'], // 不转换 Vant 组件的样式
-        minPixelValue: 1,
-        mediaQuery: true,
-        replace: true,
-        landscape: false,
-      }) as any,
-    ],
-  },
-},
+}))
 ```
 
 ### 步骤 4: 更新 CSS 文件
