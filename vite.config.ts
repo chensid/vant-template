@@ -9,7 +9,7 @@ import { resolve } from 'path'
 import { viteVConsole } from 'vite-plugin-vconsole'
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [
     vue(),
     AutoImport({
@@ -20,7 +20,7 @@ export default defineConfig({
     }),
     viteVConsole({
       entry: [resolve(__dirname, './src/main.ts')],
-      enabled: true,
+      enabled: mode !== 'production', // Only enable VConsole in development and staging
       config: {
         maxLogNumber: 1000,
         theme: 'dark',
@@ -44,9 +44,16 @@ export default defineConfig({
     },
   },
   css: {
+    preprocessorOptions: {
+      scss: {
+        // Use modern Sass API to avoid deprecation warnings
+        api: 'modern-compiler',
+        silenceDeprecations: ['legacy-js-api'],
+      },
+    },
     postcss: {
       plugins: [
-        // @ts-expect-error postcsspxtoviewport8plugin
+         
         postcsspxtoviewport8plugin({
           unitToConvert: 'px', // 要转化的单位
           viewportWidth: 375, // UI设计稿的宽度，一般是375/750
@@ -59,8 +66,30 @@ export default defineConfig({
           mediaQuery: true, // 是否在媒体查询的css代码中也进行转换，默认false
           replace: true, // 是否转换后直接更换属性值
           landscape: false, // 是否处理横屏情况
-        }),
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        }) as any, // Type assertion for third-party plugin
       ],
     },
   },
-})
+  build: {
+    // Enable source maps for better debugging in production
+    sourcemap: mode !== 'production',
+    // Remove console logs in production
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: mode === 'production',
+        drop_debugger: mode === 'production',
+      },
+    },
+    // Optimize chunk splitting
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vue-vendor': ['vue', 'vue-router', 'pinia'],
+          'vant-vendor': ['vant'],
+        },
+      },
+    },
+  },
+}))
