@@ -7,16 +7,18 @@
 
 ## ✨ 特性
 
-- 🚀 **现代化技术栈**：Vue 3 + Vite + TypeScript + Vant 4
+- 🚀 **现代化技术栈**：Vue 3.5 + Vite 7 + TypeScript 5.9 + Vant 4
 - 📱 **移动端优化**：px 转 vw，响应式布局
 - 🎨 **主题支持**：内置亮色/暗色主题切换
 - 🔐 **类型安全**：完整的 TypeScript 类型支持
-- 📦 **自动导入**：组件和 API 自动按需导入
+- 📦 **自动导入**：Vue / VueRouter / Pinia / VueUse / Vant 组件自动按需导入
+- 🧪 **测试框架**：Vitest + @vue/test-utils 单元测试
 - 🛠️ **开发工具**：ESLint + Prettier + Husky + Commitlint
 - 🔥 **HMR**：快速的热模块替换
 - 🎯 **路由管理**：Vue Router 4 with TypeScript
-- 💾 **状态管理**：Pinia with 持久化插件
-- 🌐 **HTTP 请求**：Axios 封装，完善的错误处理
+- 💾 **状态管理**：Pinia 3 + Composition API (setup stores) + 持久化插件
+- 🧰 **通用工具**：VueUse 组合式函数库
+- 🌐 **HTTP 请求**：Axios 封装，泛型类型推导
 - 🐛 **调试工具**：VConsole（仅在开发/测试环境）
 - ⚡ **构建优化**：Vendor 分包，Terser 压缩
 - 📝 **代码规范**：Pre-commit hooks，自动格式化
@@ -26,14 +28,16 @@
 ### 核心依赖
 
 - Vue 3.5+ - 渐进式 JavaScript 框架
-- Vite 5.4+ - 下一代前端构建工具
-- TypeScript 5.6+ - JavaScript 的超集
+- Vite 7 - 下一代前端构建工具
+- TypeScript 5.9+ - JavaScript 的超集
 - Vue Router 4 - 官方路由管理器
-- Pinia 2.2+ - 官方状态管理库
+- Pinia 3 - 官方状态管理库（Composition API）
 - Vant 4.9+ - 移动端组件库
+- VueUse 14+ - 组合式函数工具库
 
 ### 开发工具
 
+- Vitest 4 - 基于 Vite 的测试框架
 - ESLint 9 - 代码质量检查
 - Prettier 3 - 代码格式化
 - Husky 9 - Git hooks
@@ -76,6 +80,19 @@ pnpm type-check
 pnpm format
 ```
 
+### 测试
+
+```bash
+# 运行单元测试
+pnpm test
+
+# 监听模式
+pnpm test:watch
+
+# 生成覆盖率报告
+pnpm test:coverage
+```
+
 ### 构建
 
 ```bash
@@ -98,21 +115,26 @@ vant-template/
 ├── .husky/               # Git hooks
 ├── public/               # 静态资源
 ├── src/
-│   ├── api/              # API 接口
+│   ├── api/              # API 接口（泛型类型推导）
 │   ├── assets/           # 资源文件
+│   ├── constants/        # 常量定义
+│   ├── layouts/          # 布局组件
 │   ├── router/           # 路由配置
-│   ├── stores/           # 状态管理
+│   ├── stores/           # 状态管理（Composition API）
+│   │   └── __tests__/    # Store 单元测试
 │   ├── utils/            # 工具函数
 │   ├── views/            # 页面组件
 │   ├── App.vue           # 根组件
-│   └── main.ts           # 入口文件
+│   ├── main.ts           # 入口文件
+│   └── style.css         # 全局样式
 ├── .env.development      # 开发环境变量
 ├── .env.staging          # 测试环境变量
 ├── .env.production       # 生产环境变量
-├── commitlint.config.js  # Commitlint 配置
+├── auto-imports.d.ts     # 自动导入类型声明（自动生成）
+├── components.d.ts       # 组件类型声明（自动生成）
 ├── eslint.config.js      # ESLint 配置
 ├── tsconfig.json         # TypeScript 配置
-└── vite.config.ts        # Vite 配置
+└── vite.config.ts        # Vite 配置（含 Vitest）
 ```
 
 ## 🔧 配置说明
@@ -134,6 +156,15 @@ VITE_BASE_API=https://api.example.com
 # 环境标识
 VITE_ENV=production
 ```
+
+### 自动导入
+
+通过 `unplugin-auto-import` 自动导入以下库的 API，无需手动 import：
+
+- **Vue**: `ref`, `computed`, `watch`, `onMounted` 等
+- **Vue Router**: `useRouter`, `useRoute`, `onBeforeRouteLeave` 等
+- **Pinia**: `defineStore`, `storeToRefs` 等
+- **VueUse**: `useStorage`, `useDark`, `useEventListener` 等
 
 ### 代理配置
 
