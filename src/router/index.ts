@@ -7,10 +7,8 @@ import * as NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import { ROUTE_NAMES, STORAGE_KEY } from '@/constants'
 
-// Configure NProgress
 NProgress.configure({ showSpinner: false })
 
-// Define route meta type
 declare module 'vue-router' {
   interface RouteMeta {
     title?: string
@@ -24,45 +22,31 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     name: ROUTE_NAMES.HOME,
     component: () => import('@/views/home/index.vue'),
-    meta: {
-      title: '首页',
-      keepAlive: false,
-    },
+    meta: { title: '首页' },
   },
   {
     path: '/about',
     name: ROUTE_NAMES.ABOUT,
     component: () => import('@/views/about/index.vue'),
-    meta: {
-      title: '关于',
-      keepAlive: false,
-    },
+    meta: { title: '关于' },
   },
 ]
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes,
-  scrollBehavior(to, from, savedPosition) {
-    // Restore scroll position or scroll to top
-    if (savedPosition) {
-      return savedPosition
-    } else {
-      return { top: 0 }
-    }
+  scrollBehavior(_to, _from, savedPosition) {
+    return savedPosition ?? { top: 0 }
   },
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _from, next) => {
   NProgress.start()
 
-  // Set page title
-  const { title } = to.meta
-  if (title) {
-    document.title = title as string
+  if (to.meta.title) {
+    document.title = to.meta.title
   }
 
-  // Check authentication if required
   if (to.meta.requireAuth) {
     const token = localStorage.getItem(STORAGE_KEY.TOKEN)
     if (!token) {
@@ -78,7 +62,6 @@ router.afterEach(() => {
   NProgress.done()
 })
 
-// Handle navigation errors
 router.onError(error => {
   console.error('Router error:', error)
   NProgress.done()

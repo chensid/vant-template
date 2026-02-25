@@ -1,16 +1,13 @@
 <script setup lang="ts">
-import type { ConfigProviderTheme } from 'vant'
-import { computed } from 'vue'
-import { useThemeStore } from '@/stores/theme'
-
-const themeStore = useThemeStore()
-const theme = computed(() => themeStore.theme as ConfigProviderTheme)
+import DefaultLayout from '@/layouts/DefaultLayout.vue'
 </script>
 
 <template>
-  <van-config-provider :theme="theme">
-    <router-view />
-  </van-config-provider>
+  <DefaultLayout>
+    <router-view v-slot="{ Component }">
+      <keep-alive>
+        <component :is="Component" />
+      </keep-alive>
+    </router-view>
+  </DefaultLayout>
 </template>
-
-<style lang="scss" scoped></style>
