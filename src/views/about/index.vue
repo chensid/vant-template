@@ -246,7 +246,7 @@ const techStack = [
       var(--gradient-end)
     );
     color: #fff;
-    box-shadow: 0 4px 16px rgba(99, 102, 241, 0.35);
+    box-shadow: 0 4px 16px rgba(232, 93, 4, 0.35);
   }
 
   &--sub {

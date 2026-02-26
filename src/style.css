@@ -1,16 +1,17 @@
 :root {
-  --app-bg: #f5f7fa;
+  --app-bg: #f8f7f4;
   --card-bg: rgba(255, 255, 255, 0.72);
-  --card-border: rgba(255, 255, 255, 0.5);
-  --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
-  --text-primary: #1a1a2e;
-  --text-secondary: #64748b;
-  --text-tertiary: #94a3b8;
-  --accent: #6366f1;
-  --accent-light: #818cf8;
-  --accent-surface: rgba(99, 102, 241, 0.08);
-  --gradient-start: #6366f1;
-  --gradient-end: #a855f7;
+  --card-border: rgba(0, 0, 0, 0.04);
+  --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+  --text-primary: #1f1f23;
+  --text-secondary: #6b7280;
+  --text-tertiary: #9ca3af;
+  --accent: #e2590c;
+  --accent-light: #f97316;
+  --accent-surface: rgba(226, 89, 12, 0.07);
+  --gradient-start: #e85d04;
+  --gradient-mid: #f48c06;
+  --gradient-end: #faa307;
   --radius-sm: 12px;
   --radius-md: 16px;
   --radius-lg: 24px;
@@ -18,16 +19,16 @@
 }
 
 .van-theme-dark {
-  --app-bg: #0f0f1a;
-  --card-bg: rgba(30, 30, 50, 0.65);
-  --card-border: rgba(255, 255, 255, 0.08);
+  --app-bg: #141416;
+  --card-bg: rgba(32, 32, 38, 0.65);
+  --card-border: rgba(255, 255, 255, 0.06);
   --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  --text-primary: #f1f5f9;
-  --text-secondary: #94a3b8;
-  --text-tertiary: #64748b;
-  --accent: #818cf8;
-  --accent-light: #a5b4fc;
-  --accent-surface: rgba(129, 140, 248, 0.12);
+  --text-primary: #f5f5f4;
+  --text-secondary: #a1a1aa;
+  --text-tertiary: #71717a;
+  --accent: #f97316;
+  --accent-light: #fb923c;
+  --accent-surface: rgba(249, 115, 22, 0.1);
 }
 
 *,
@@ -62,7 +63,6 @@ body {
   min-height: 100dvh;
 }
 
-/* Glass card utility */
 .glass-card {
   background: var(--card-bg);
   backdrop-filter: blur(20px) saturate(1.8);
@@ -76,7 +76,6 @@ body {
     box-shadow var(--transition);
 }
 
-/* Smooth page transitions */
 .page-enter-active,
 .page-leave-active {
   transition:
