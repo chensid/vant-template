@@ -4,10 +4,10 @@ import DefaultLayout from '@/layouts/DefaultLayout.vue'
 
 <template>
   <DefaultLayout>
-    <router-view v-slot="{ Component }">
-      <keep-alive>
-        <component :is="Component" />
-      </keep-alive>
+    <router-view v-slot="{ Component, route }">
+      <transition name="page" mode="out-in">
+        <component :is="Component" :key="route.path" />
+      </transition>
     </router-view>
   </DefaultLayout>
 </template>
