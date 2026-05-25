@@ -13,12 +13,11 @@ import { viteVConsole } from 'vite-plugin-vconsole'
 // + sourcemaps, production strips them).
 const argv = process.argv
 const modeFlagIndex = argv.indexOf('--mode')
-const mode =
-  modeFlagIndex !== -1
-    ? argv[modeFlagIndex + 1]
-    : argv.includes('build')
-      ? 'production'
-      : 'development'
+// `argv[modeFlagIndex + 1]` is undefined when `--mode` is passed without a
+// value, so fall back to the command instead of an undefined mode.
+const modeArg = modeFlagIndex !== -1 ? argv[modeFlagIndex + 1] : undefined
+const isBuildCommand = argv.includes('build')
+const mode = modeArg ?? (isBuildCommand ? 'production' : 'development')
 const isProd = mode === 'production'
 
 // `defineConfig` is intentionally omitted: its overload resolution against the

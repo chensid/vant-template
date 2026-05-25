@@ -49,7 +49,13 @@ const HTTP_ERROR_MAP: Record<number, string> = {
 
 service.interceptors.response.use(
   (response: AxiosResponse<ApiResponse>) => {
-    const { code, message } = response.data
+    const body = response.data
+    if (!body) {
+      showNotify({ type: 'danger', message: '响应数据为空' })
+      return Promise.reject(new Error('响应数据为空'))
+    }
+
+    const { code, message } = body
 
     if (code === API_CODE.SUCCESS || code === API_CODE.SUCCESS_ALT) {
       return response

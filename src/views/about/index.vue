@@ -1,15 +1,27 @@
 <script setup lang="ts">
-import { useQuery } from '@tanstack/vue-query'
+import { useQuery, useQueryClient } from '@tanstack/vue-query'
 import { useCounterStore } from '@/stores/counter'
 import { homeQueryOptions } from '@/api/home'
 
 const router = useRouter()
 const counterStore = useCounterStore()
 
+const queryClient = useQueryClient()
+const homeQuery = homeQueryOptions()
 const { isFetching, isError, refetch } = useQuery({
-  ...homeQueryOptions(),
+  ...homeQuery,
   enabled: false,
   retry: false,
+})
+
+// Clear the error badge a couple seconds after a failure so the demo card
+// returns to its idle "点击发送" state.
+watch(isError, failed => {
+  if (failed) {
+    setTimeout(() => {
+      queryClient.resetQueries({ queryKey: homeQuery.queryKey })
+    }, 2000)
+  }
 })
 
 const techStack = [
