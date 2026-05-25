@@ -79,9 +79,10 @@ export default defineConfig(({ mode }) => ({
     },
     rollupOptions: {
       output: {
-        manualChunks: {
-          'vue-vendor': ['vue', 'vue-router', 'pinia'],
-          'vant-vendor': ['vant'],
+        manualChunks(id) {
+          if (/node_modules\/(vue|vue-router|pinia)\//.test(id))
+            return 'vue-vendor'
+          if (/node_modules\/vant\//.test(id)) return 'vant-vendor'
         },
       },
     },
