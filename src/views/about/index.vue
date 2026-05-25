@@ -1,23 +1,16 @@
 <script setup lang="ts">
+import { useQuery } from '@tanstack/vue-query'
 import { useCounterStore } from '@/stores/counter'
-import { getHomeData } from '@/api/home'
+import { homeQueryOptions } from '@/api/home'
 
 const router = useRouter()
 const counterStore = useCounterStore()
-const apiStatus = ref<'idle' | 'loading' | 'error'>('idle')
 
-function handleGetData() {
-  apiStatus.value = 'loading'
-  getHomeData()
-    .then(res => {
-      console.log(res)
-      apiStatus.value = 'idle'
-    })
-    .catch(() => {
-      apiStatus.value = 'error'
-      setTimeout(() => (apiStatus.value = 'idle'), 2000)
-    })
-}
+const { isFetching, isError, refetch } = useQuery({
+  ...homeQueryOptions(),
+  enabled: false,
+  retry: false,
+})
 
 const techStack = [
   { name: 'Vue', version: '3.5', color: '#42b883' },
@@ -77,26 +70,26 @@ const techStack = [
       <!-- API Demo -->
       <div class="section">
         <h3 class="section__label">网络请求</h3>
-        <div class="api-card glass-card" @click="handleGetData">
+        <div class="api-card glass-card" @click="() => refetch()">
           <div class="api-card__left">
             <span class="api-card__method">GET</span>
             <span class="api-card__url">/api/home/data</span>
           </div>
           <div class="api-card__status">
             <span
-              v-if="apiStatus === 'idle'"
-              class="api-card__badge api-card__badge--idle"
-            >
-              点击发送
-            </span>
-            <span
-              v-else-if="apiStatus === 'loading'"
+              v-if="isFetching"
               class="api-card__badge api-card__badge--loading"
             >
               请求中...
             </span>
-            <span v-else class="api-card__badge api-card__badge--error">
+            <span
+              v-else-if="isError"
+              class="api-card__badge api-card__badge--error"
+            >
               无后端服务
+            </span>
+            <span v-else class="api-card__badge api-card__badge--idle">
+              点击发送
             </span>
           </div>
         </div>

@@ -20,6 +20,7 @@
     "cz": "cz"
   },
   "dependencies": {
+    "@tanstack/vue-query": "5.100.14",
     "@vueuse/core": "^14.3.0",
     "axios": "^1.13.2",
     "pinia": "^3.0.4",

@@ -4,7 +4,7 @@ import axios, {
   type InternalAxiosRequestConfig,
   type AxiosResponse,
 } from 'axios'
-import { showLoadingToast, closeToast, showNotify } from 'vant'
+import { showNotify } from 'vant'
 import { API_CODE, STORAGE_KEY, ROUTE_NAMES } from '@/constants'
 import router from '@/router'
 
@@ -14,8 +14,6 @@ export interface ApiResponse<T = unknown> {
   message: string
 }
 
-let activeRequests = 0
-
 const service: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_API,
   timeout: 10_000,
@@ -24,22 +22,13 @@ const service: AxiosInstance = axios.create({
 
 service.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    if (activeRequests++ === 0) {
-      showLoadingToast({ message: '加载中...', forbidClick: true, duration: 0 })
-    }
-
     const token = localStorage.getItem(STORAGE_KEY.TOKEN)
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
-
     return config
   },
-  error => {
-    if (--activeRequests === 0) closeToast()
-    showNotify({ type: 'danger', message: '请求失败' })
-    return Promise.reject(error)
-  },
+  error => Promise.reject(error),
 )
 
 function handleUnauthorized() {
@@ -60,12 +49,10 @@ const HTTP_ERROR_MAP: Record<number, string> = {
 
 service.interceptors.response.use(
   (response: AxiosResponse<ApiResponse>) => {
-    if (--activeRequests === 0) closeToast()
-
-    const { code, data, message } = response.data
+    const { code, message } = response.data
 
     if (code === API_CODE.SUCCESS || code === API_CODE.SUCCESS_ALT) {
-      return data as AxiosResponse<ApiResponse>
+      return response
     }
 
     if (code === API_CODE.UNAUTHORIZED) {
@@ -79,8 +66,6 @@ service.interceptors.response.use(
     return Promise.reject(new Error(errorMessage))
   },
   error => {
-    if (--activeRequests === 0) closeToast()
-
     let message = '网络错误'
 
     if (error.response) {
@@ -99,8 +84,11 @@ service.interceptors.response.use(
   },
 )
 
-export function request<T = unknown>(config: AxiosRequestConfig): Promise<T> {
-  return service(config) as Promise<T>
+export async function request<T = unknown>(
+  config: AxiosRequestConfig,
+): Promise<T> {
+  const response = await service(config)
+  return (response.data as ApiResponse<T>).data
 }
 
 export default service
