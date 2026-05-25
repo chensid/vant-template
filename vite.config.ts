@@ -1,9 +1,10 @@
 import { fileURLToPath, URL } from 'node:url'
 import vue from '@vitejs/plugin-vue'
+import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { VantResolver } from '@vant/auto-import-resolver'
-import postcsspxtoviewport8plugin from 'postcss-px-to-viewport-8-plugin'
+import mobileForever from 'postcss-mobile-forever'
 import { viteVConsole } from 'vite-plugin-vconsole'
 
 // Vite+ reads `lint`/`fmt` statically from the default export, so the config
@@ -76,6 +77,7 @@ export default {
   },
   plugins: [
     vue(),
+    UnoCSS(),
     AutoImport({
       imports: ['vue', 'vue-router', 'pinia', '@vueuse/core'],
       resolvers: [VantResolver()],
@@ -115,18 +117,13 @@ export default {
     },
     postcss: {
       plugins: [
-        postcsspxtoviewport8plugin({
-          unitToConvert: 'px',
+        mobileForever({
+          appSelector: '#app',
           viewportWidth: 375,
+          maxDisplayWidth: 600,
           unitPrecision: 6,
           propList: ['*'],
-          viewportUnit: 'vw',
-          fontViewportUnit: 'vw',
           selectorBlackList: ['ignore-'],
-          minPixelValue: 1,
-          mediaQuery: true,
-          replace: true,
-          landscape: false,
           // oxlint-disable-next-line typescript/no-explicit-any
         }) as any,
       ],
