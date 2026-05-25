@@ -3,22 +3,23 @@
 [![CI](https://github.com/chensid/vant-template/workflows/CI/badge.svg)](https://github.com/chensid/vant-template/actions)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-一个基于 Vue 3 + Vite + TypeScript + Vant 的现代化 H5 移动端开发模板。
+一个基于 Vue 3 + Vite+ + TypeScript + Vant 的现代化 H5 移动端开发模板。
 
 ## ✨ 特性
 
-- 🚀 **现代化技术栈**：Vue 3.5 + Vite 7 + TypeScript 5.9 + Vant 4
-- 📱 **移动端优化**：px 转 vw，响应式布局
-- 🎨 **主题支持**：内置亮色/暗色主题切换
+- 🚀 **现代化技术栈**：Vue 3.5 + Vite 8 + TypeScript 6 + Vant 4
+- 🧰 **统一工具链**：Vite+（`vp` CLI 统一 dev/build/test/lint/format，底层 Rolldown + Oxlint + Oxfmt）
+- 🎨 **原子化 CSS**：UnoCSS（presetWind3 + preset-rem-to-px）
+- 📱 **移动端适配**：postcss-mobile-forever（max-vw 模式，带桌面最大宽度回退）
+- 🌈 **主题支持**：内置亮色/暗色主题切换（CSS 变量 + Vant ConfigProvider）
 - 🔐 **类型安全**：完整的 TypeScript 类型支持
 - 📦 **自动导入**：Vue / VueRouter / Pinia / VueUse / Vant 组件自动按需导入
-- 🧪 **测试框架**：Vitest + @vue/test-utils 单元测试
-- 🛠️ **开发工具**：ESLint + Prettier + Husky + Commitlint
+- 🧪 **测试框架**：Vitest（经 `vp test`）+ @vue/test-utils 单元测试
 - 🔥 **HMR**：快速的热模块替换
-- 🎯 **路由管理**：Vue Router 4 with TypeScript
+- 🎯 **路由管理**：Vue Router 5 with TypeScript
 - 💾 **状态管理**：Pinia 3 + Composition API (setup stores) + 持久化插件
 - 🧰 **通用工具**：VueUse 组合式函数库
-- 🌐 **HTTP 请求**：Axios 封装，泛型类型推导
+- 🌐 **HTTP 请求**：Axios 封装 + TanStack Vue Query（缓存 / 去重 / loading 状态）
 - 🐛 **调试工具**：VConsole（仅在开发/测试环境）
 - ⚡ **构建优化**：Vendor 分包，Terser 压缩
 - 📝 **代码规范**：Pre-commit hooks，自动格式化
@@ -28,18 +29,21 @@
 ### 核心依赖
 
 - Vue 3.5+ - 渐进式 JavaScript 框架
-- Vite 7 - 下一代前端构建工具
-- TypeScript 5.9+ - JavaScript 的超集
-- Vue Router 4 - 官方路由管理器
+- Vite 8 / Vite+ - 下一代前端构建工具链（Rolldown）
+- TypeScript 6 - JavaScript 的超集
+- Vue Router 5 - 官方路由管理器
 - Pinia 3 - 官方状态管理库（Composition API）
 - Vant 4.9+ - 移动端组件库
 - VueUse 14+ - 组合式函数工具库
+- UnoCSS - 即时按需的原子化 CSS 引擎
+- TanStack Vue Query 5 - 服务端状态管理
 
 ### 开发工具
 
-- Vitest 4 - 基于 Vite 的测试框架
-- ESLint 9 - 代码质量检查
-- Prettier 3 - 代码格式化
+- Vite+（`vp`）- 统一的开发/构建/测试/检查 CLI
+- Vitest 4 - 基于 Vite 的测试框架（经 `vp test`）
+- Oxlint - 代码质量检查（替代 ESLint）
+- Oxfmt - 代码格式化（替代 Prettier）
 - Husky 9 - Git hooks
 - lint-staged 16 - 文件过滤
 - Commitlint 20 - 提交信息规范
@@ -70,14 +74,17 @@ pnpm install
 # 启动开发服务器 (http://localhost:9527)
 pnpm dev
 
-# 代码检查
+# 代码检查 (Oxlint)
 pnpm lint
 
-# 类型检查
+# 类型检查 (vue-tsc)
 pnpm type-check
 
-# 代码格式化
+# 代码格式化 (Oxfmt)
 pnpm format
+
+# 一键检查：格式 + lint + 类型 (vp check)
+pnpm check
 ```
 
 ### 测试
@@ -132,9 +139,9 @@ vant-template/
 ├── .env.production       # 生产环境变量
 ├── auto-imports.d.ts     # 自动导入类型声明（自动生成）
 ├── components.d.ts       # 组件类型声明（自动生成）
-├── eslint.config.js      # ESLint 配置
+├── uno.config.ts         # UnoCSS 配置
 ├── tsconfig.json         # TypeScript 配置
-└── vite.config.ts        # Vite 配置（含 Vitest）
+└── vite.config.ts        # Vite+ 配置（含 Vitest、Oxlint、Oxfmt）
 ```
 
 ## 🔧 配置说明
@@ -184,11 +191,14 @@ server: {
 
 ### 移动端适配
 
-使用 `postcss-px-to-viewport-8-plugin` 自动将 px 转换为 vw：
+使用 `postcss-mobile-forever`（max-vw 模式）自动将 px 转换为 vw，并为桌面/平板提供最大宽度回退：
 
 - 设计稿宽度：375px
+- 最大显示宽度：600px（超出后内容不再无限拉伸）
 - 转换精度：6 位小数
 - 黑名单：以 `ignore-` 开头的类名不转换
+
+UnoCSS 工具类经 `@unocss/preset-rem-to-px` 先输出 px，再由上述插件统一转换为 vw，因此 Vant 组件、手写 CSS 与原子类在移动端缩放表现一致。
 
 ## 📝 提交规范
 
