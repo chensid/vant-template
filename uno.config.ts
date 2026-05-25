@@ -27,10 +27,8 @@ export default defineConfig({
         surface: 'var(--accent-surface)',
       },
     },
-    borderRadius: {
-      sm: 'var(--radius-sm)',
-      md: 'var(--radius-md)',
-      lg: 'var(--radius-lg)',
-    },
+  },
+  shortcuts: {
+    'section-title': 'font-700 text-primary pl-[2px]',
   },
 })
